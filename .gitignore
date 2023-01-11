@@ -7,3 +7,5 @@
 README.html
 .Renviron
 
+.quarto
+_site

@@ -14,8 +14,7 @@ categories:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-No blog da Curso-R, colaborei com três posts que apresentam dicas para fazer tabelas, gráficos e relatórios em R.
-Leia os posts completos através dos links a seguir:
+No blog da Curso-R, colaborei com três posts que apresentam dicas para fazer tabelas, gráficos e relatórios em R. Leia os posts completos através dos links a seguir:
 
 -   [Dicas para criar **tabelas**](https://blog.curso-r.com/posts/2020-12-03-dicas-relatorios-r4ds1_tabelas/)
 
@@ -49,9 +48,7 @@ imdb <-
 
 ### Exemplo 1: Ordenar, formatar dinheiro e nomear as colunas
 
-No exemplo a seguir, primeiramente vamos selecionar as variáveis que representam o nome e o orçamento dos filmes (com a função `select()`).
-É interessante ordenar a tabela segundo alguma variável, para facilitar a leitura.
-No exemplo a seguir, vamos ordenar pelo orçamento de forma decrescente utilizando a função `arrange(desc(variavel))`.
+No exemplo a seguir, primeiramente vamos selecionar as variáveis que representam o nome e o orçamento dos filmes (com a função `select()`). É interessante ordenar a tabela segundo alguma variável, para facilitar a leitura. No exemplo a seguir, vamos ordenar pelo orçamento de forma decrescente utilizando a função `arrange(desc(variavel))`.
 
 Vamos selecionar apenas as primeiras linhas da base, para facilitar a apresentação neste post (utilizando a função `head()`), e salvar em um objeto chamado `filmes_orcamento` (que usaremos nos códigos a seguir).
 
@@ -71,13 +68,9 @@ filmes_orcamento %>%
   mutate(orcamento = scales::dollar(orcamento)) 
 ```
 
-A tabela anteiror foi apresentada igual a um código que aparece como retorno no console do R, e isso não fica legal em um relatório.
-Existem diversas formas de apresentar tabelas, mas neste exemplo utilizaremos a função `knitr::kable()` [^1].
-Além disso, é comum que o nome das variáveis estejam escritas com letras minúsculas, sem acentuação, etc (por exemplo: `orcamento`).
-Para que a tabela fique melhor formatada, podemos renomear o nome das colunas usando o argumento `col.names` da função `knitr::kable()`, informando um vetor com os novos nomes para as colunas da tabela.
+A tabela anteiror foi apresentada igual a um código que aparece como retorno no console do R, e isso não fica legal em um relatório. Existem diversas formas de apresentar tabelas, mas neste exemplo utilizaremos a função `knitr::kable()` [^1]. Além disso, é comum que o nome das variáveis estejam escritas com letras minúsculas, sem acentuação, etc (por exemplo: `orcamento`). Para que a tabela fique melhor formatada, podemos renomear o nome das colunas usando o argumento `col.names` da função `knitr::kable()`, informando um vetor com os novos nomes para as colunas da tabela.
 
-[^1]: Outros pacotes que permitem criar tabelas são: [DT](https://rstudio.github.io/DT/), [reactable](https://glin.github.io/reactable/index.html), [flextable](https://davidgohel.github.io/flextable/articles/overview.html) e [kableExtra](https://cran.r-project.org/web/packages/kableExtra/vignettes/awesome_table_in_html.html).
-    [Essa página](https://rfortherestofus.com/2019/11/how-to-make-beautiful-tables-in-r/) também apresenta materiais muito ricos sobre elaboração de tabelas!
+[^1]: Outros pacotes que permitem criar tabelas são: [DT](https://rstudio.github.io/DT/), [reactable](https://glin.github.io/reactable/index.html), [flextable](https://davidgohel.github.io/flextable/articles/overview.html) e [kableExtra](https://cran.r-project.org/web/packages/kableExtra/vignettes/awesome_table_in_html.html). [Essa página](https://rfortherestofus.com/2019/11/how-to-make-beautiful-tables-in-r/) também apresenta materiais muito ricos sobre elaboração de tabelas!
 
 ```{r}
 imdb %>%
@@ -88,13 +81,11 @@ imdb %>%
   knitr::kable(col.names = c("Título do filme", "Orçamento"))
 ```
 
-A tabela ficou mais fácil de ser lida.
-O que achou do resultado?
+A tabela ficou mais fácil de ser lida. O que achou do resultado?
 
 ### Exemplo 2: Arredondar valores e ordenar categorias
 
-No exemplo a seguir, vamos calcular a nota média dos filmes na base do IMDB para cada classificação etária.
-Fazemos isso utilizando as funções `group_by()` e `summarise()`.
+No exemplo a seguir, vamos calcular a nota média dos filmes na base do IMDB para cada classificação etária. Fazemos isso utilizando as funções `group_by()` e `summarise()`.
 
 Salvaremos o resultado em um objeto chamado `nota_classificacao` (que usaremos nos códigos a seguir).
 
@@ -106,20 +97,16 @@ nota_classificacao <- imdb %>%
 nota_classificacao
 ```
 
-O primeiro ponto interessante para arrumar são os valores da variável `nota_media_imdb`, arredondando os valores para que não apareça as casas decimais.
-Para melhorar a apresentação, podemos usar a função `round()` (utilizada para arredondar números) junto com a função `mutate()` (que altera ou cria novas variáveis).
-Com o argumento `digits` da função `round()`, é possível definir quantas casas decimais você quer que o número tenha.
+O primeiro ponto interessante para arrumar são os valores da variável `nota_media_imdb`, arredondando os valores para que não apareça as casas decimais. Para melhorar a apresentação, podemos usar a função `round()` (utilizada para arredondar números) junto com a função `mutate()` (que altera ou cria novas variáveis). Com o argumento `digits` da função `round()`, é possível definir quantas casas decimais você quer que o número tenha.
 
 ```{r}
 nota_classificacao %>%
   mutate(nota_media_imdb = round(nota_media_imdb, digits = 0))
 ```
 
-Na base que estamos usando de exemplo, a variável `classificacao` é uma variável categórica do tipo `chr` (character), ou seja, um texto.
-Por padrão, a ordem utilizada é a alfabética (repare no resultado anterior, primeiro aparecem as classificações que começam com A, depois com L e por último a que começa com O).
+Na base que estamos usando de exemplo, a variável `classificacao` é uma variável categórica do tipo `chr` (character), ou seja, um texto. Por padrão, a ordem utilizada é a alfabética (repare no resultado anterior, primeiro aparecem as classificações que começam com A, depois com L e por último a que começa com O).
 
-Para ordenar essa variável, precisamos transformar ela em um fator.
-Portanto, usaremos o pacote `forcats`, que faz parte do `tidyverse` e possui funções para trabalhar com fatores [^2].
+Para ordenar essa variável, precisamos transformar ela em um fator. Portanto, usaremos o pacote `forcats`, que faz parte do `tidyverse` e possui funções para trabalhar com fatores [^2].
 
 [^2]: Caso queira saber mais sobre fatores e o pacote `forcats`, recomendo consutar [este material da Curso-R](https://www.curso-r.com/material/forcats/).
 
@@ -153,4 +140,3 @@ Neste post conhecemos os trabalhos premiados no curso de [R para Ciência de dad
 Nos próximos posts apresentaremos mais algumas dicas sobre gráficos com o pacote `ggplot2` e relatórios com o pacote `R Markdown`.
 
 E caso você tenha interesse em saber mais sobre os cursos, a [página de cursos](https://www.curso-r.com/cursos/) foi atualizada, e as incrições para os cursos de 2021 já estão abertas!
-

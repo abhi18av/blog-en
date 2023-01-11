@@ -49,7 +49,3 @@ Here you can find a series of posts about GitHub Actions, which are complementar
 ::: {#posts-ptbr}
 :::
 
-## Posts en Español
-
-::: {#posts-es}
-:::

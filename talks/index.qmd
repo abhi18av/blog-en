@@ -2,7 +2,7 @@
 title: "Bea Milz"
 listing:
   - id: talks
-    contents: "{pt,es,en}/*/index.qmd"
+    contents: "{pt,en}/*/index.qmd"
     type: grid
     fields: [image, date, title, subtitle]
     sort: "date desc"
